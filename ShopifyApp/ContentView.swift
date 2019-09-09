@@ -10,33 +10,47 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var selection = 0
- 
-    var body: some View {
-        TabView(selection: $selection){
-            Text("First View")
-                .font(.title)
-                .tabItem {
-                    VStack {
-                        Image("first")
-                        Text("First")
-                    }
-                }
-                .tag(0)
-            Text("Second View")
-                .font(.title)
-                .tabItem {
-                    VStack {
-                        Image("second")
-                        Text("Second")
-                    }
-                }
-                .tag(1)
-        }
+	var shopifyAPI: ShopifyAPI
+	
+	var body: some View {
+		TabView(selection: $selection) {
+			NavigationView {
+				OrdersView(api: shopifyAPI)
+					.navigationBarTitle(Text("Orders"))
+			}
+			.tag(0)
+			.tabItem {
+				VStack {
+					Image(systemName: "tray")
+					Text("Orders")
+				}
+			}
+
+			NavigationView {
+				ProductView(api: shopifyAPI)
+				.navigationBarTitle(Text("Products"))
+
+			}
+			.tag(1)
+			.tabItem {
+				VStack {
+					Image(systemName: "bag")
+					Text("Products")
+				}
+			}
+			NavigationView {
+				CustomersView()
+				.navigationBarTitle(Text("Customers"))
+
+			}
+			.tag(2)
+			.tabItem {
+				VStack {
+					Image(systemName: "person")
+					Text("Customers")
+				}
+			}
+		}
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
-}

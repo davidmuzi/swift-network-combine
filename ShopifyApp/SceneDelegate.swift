@@ -20,7 +20,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		// This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
 
 		// Create the SwiftUI view that provides the window contents.
-		let contentView = ContentView()
+		let shopifyAPI = ShopifyAPI(domain: "davidmuzi.myshopify.com", credentials: .password("c0ceea9aea5b11f67da61ffce5a44632", "f63e5419790d3e156d42edf06c94bdc5"))
+		ShopifyAPI.shared = shopifyAPI
+		let contentView = ContentView(shopifyAPI: shopifyAPI)
+			//.environmentObject(shopifyAPI)
 
 		// Use a UIHostingController as window root view controller.
 		if let windowScene = scene as? UIWindowScene {
